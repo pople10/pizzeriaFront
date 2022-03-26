@@ -1,0 +1,127 @@
+<div class="checkout-wrapper">
+    <div class="header-title" style="background: url(assets/images/background/background.png);">
+        <div class="container" id="mainDIV">
+            <div class="title">
+                <h2 style="color:black;">Checkout</h2>
+            </div>
+        </div>
+    </div>
+    <div class="checkout sec-padding" style="background: url(assets/images/background/download.svg);">
+        <div class="container">
+
+            <div fxLayout="row wrap" class="">
+                <div class="billing-details  pr-15" fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50">
+                    <div class="billing-details-title">
+                        <h2>New Address</h2>
+                    </div>
+
+                    <form fxLayout="row wrap" (ngSubmit)="submitAddress($event)">
+                        <div fxFlex="100" fxFlex.gt-sm="100" class="mt-20" ngClass.sm="mt-10" ngClass.xs="mt-10">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Address Line 1 (required)" #address1="ngModel" [(ngModel)]="address.address1" name="address1" required>
+                                <mat-error *ngIf="address1.invalid">Please enter a valid address line</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="100" fxFlex.gt-sm="100" class="mt-20" ngClass.sm="mt-10" ngClass.xs="mt-10">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Address Line 2 (optional)" #address2="ngModel" [(ngModel)]="address.address2" name="address2">
+                            </mat-form-field>
+                        </div>
+
+                        <div fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50" class="mt-20 pr-5" ngClass.sm="mt-10" ngClass.xs="mt-10">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="City (required)" #city="ngModel" [(ngModel)]="address.city" name="city" required>
+                                <mat-error *ngIf="city.invalid">Please enter a valid city</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50" class="pl-5 mt-20" ngClass.sm="mt-10" ngClass.xs="mt-10">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Postcode / zip (required)" #postcode="ngModel" [(ngModel)]="address.zipcode" name="postcode" required>
+                                <mat-error *ngIf="postcode.invalid">Please enter a valid zip code</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="button-wrap" fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                            <button [disabled]="dataSent" class="btn-project" mat-raised-button [color]="addressBtnColor" type="submit">Add address</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="mainOrder-wrapper pl-15" fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50">
+                    <div class="main-order ">
+                        <div class="order-box">
+                            <div class="title-box">
+                                <div>Product <span class="tl-amount"> Total</span></div>
+                            </div>
+                            <ul class="price-list" *ngIf='buyProducts.length'>
+                                <li *ngFor="let item of buyProducts">
+                                    {{ item.product.title }}
+                                    <span>
+                       {{ item.product.price }}£
+                        </span>
+                                </li>
+                            </ul>
+                            <ul class="quantity" *ngIf='buyProducts.length <= 0'>
+                                <li class="empty-checkout"> There are no products in cart </li>
+                            </ul>
+                            <form (ngSubmit)="submitOrder($event)">
+                                <ul class="total-amount">
+                                    <li>
+                                        Subtotal <span class="amount">{{ getTotal() | async}}£</span>
+                                    </li>
+                                    <li *ngIf="typeOrder!='RESERVATION'">
+                                        Shipping
+                                        <div class="shipping">
+                                            <div class="shopping-option">
+                                                <mat-radio-group>
+                                                    <mat-radio-button disabled="true" checked="true" value="free">Free shipping</mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <mat-form-field appearance="fill" class="w-100">
+                                            <mat-label>Select a type</mat-label>
+                                            <mat-select [(value)]="order.type">
+                                                <mat-option></mat-option>
+                                                <mat-option *ngFor="let type of types" [value]="type.value">{{type.label}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <mat-error *ngIf="isSubmitted&&!this.order.type">Please enter a valid type</mat-error>
+                                    </li>
+                                    <li>
+                                        <mat-form-field appearance="fill" class="w-100">
+                                            <mat-label>Select an address</mat-label>
+                                            <mat-select [(value)]="order.address">
+                                                <mat-option></mat-option>
+                                                <mat-option *ngFor="let addr of addresses" [value]="addr.id">
+                                                    {{addr.address1}}, <span *ngIf="addr.address2!=''">{{addr.address2}},</span> {{addr.city}}, {{addr.zipcode}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <mat-error *ngIf="isSubmitted&&!this.order.address">Please enter a valid address</mat-error>
+                                    </li>
+                                    <li>
+                                        <mat-form-field class="w-100">
+                                            <input matInput placeholder="Coupon (If applied)" [(ngModel)]="order.coupon" name="coupon">
+                                        </mat-form-field>
+                                    </li>
+                                    <li>
+                                        <mat-form-field appearance="fill" class="w-100">
+                                            <mat-label>Choose a wanted date</mat-label>
+                                            <input type="datetime-local" matInput [(ngModel)]="order.wanted" name="wanted">
+                                        </mat-form-field>
+                                        <mat-error *ngIf="isSubmitted&&!this.order.wanted">Please enter a valid date</mat-error>
+                                    </li>
+                                </ul>
+                                <div class="order">
+                                    <button [disabled]="dataSent" class="btn-project" mat-raised-button [color]="orderBtnColor" type="submit">PLACE ORDER</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

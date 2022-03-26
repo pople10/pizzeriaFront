@@ -1,0 +1,79 @@
+<div class="my-account">
+    <div class="header-title" style="background: url(assets/images/background/background.png);">
+        <div class="container" id="mainDIV">
+            <div class="title">
+                <h2 style="color:black">My Account</h2>
+            </div>
+        </div>
+    </div>
+    <div class="my-acc sec-padding" style="background: url(assets/images/background/download.svg);">
+        <div class="container">
+            <mat-card fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start start" class="p-0">
+                <div class="my-account-wrap p-0" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start start">
+                    <div class="login-wrapper pr-50" fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50">
+                        <div class="title">
+                            <h3>Login</h3>
+                        </div>
+                        <form fxLayout="row wrap" (ngSubmit)="loginSubmit($event)">
+                            <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                <mat-form-field class="w-100">
+                                    <input matInput placeholder="Email address (required)" #name="ngModel" [(ngModel)]="login" name="name" required>
+                                    <mat-error *ngIf="name.invalid">Please enter a valid email</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                <mat-form-field class="w-100">
+                                    <input type="password" matInput placeholder="Password (required)" #email="ngModel" [(ngModel)]="password" name="email" required>
+                                    <mat-error *ngIf="email.invalid">Please enter a valid password</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="button-wrap" fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                <button [disabled]="dataSent" class="btn-project" mat-raised-button [color]="colorLogin" type="submit">Log in</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="register-wrapper pr-15" fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50">
+                        <div class="title">
+                            <h3>Register</h3>
+                        </div>
+                        <div class="register-body">
+                            <form fxLayout="row wrap" [formGroup]="registerForm" (ngSubmit)="register($event)">
+                                <div fxFlex="50" fxFlex.gt-sm="50" class="px-1" class="m-2" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                    <mat-form-field class="w-50">
+                                        <input formControlName="firstname" matInput placeholder="First name (required)" [(ngModel)]="this.data.firstname" name="firstname" required>
+                                        <mat-error *ngIf="isSubmitted && (form.firstname.errors?.required)">Please enter a valid first name</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="50" fxFlex.gt-sm="50" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                    <mat-form-field class="w-50">
+                                        <input formControlName="lastname" matInput placeholder="Last name (required)" [(ngModel)]="this.data.lastname" name="lastname" required>
+                                        <mat-error *ngIf="isSubmitted && (form.lastname.errors?.required)">Please enter a valid last name</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                    <mat-form-field class="w-100">
+                                        <input formControlName="email" matInput placeholder="Email address (required)" [(ngModel)]="this.data.email" name="email" required>
+                                        <mat-error *ngIf="isSubmitted && (form.email.errors?.required||form.email.errors?.email)">Please enter a valid email</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                    <mat-form-field class="w-100">
+                                        <input formControlName="password" matInput placeholder="Password (required)" type="password" [(ngModel)]="this.data.password" name="password" required>
+                                        <mat-error *ngIf="isSubmitted && (form.password.errors?.required)">Please enter a valid password</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="button-wrap" fxFlex="100" fxFlex.gt-sm="100" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                    <button [disabled]="dataSent" class="btn-project" mat-raised-button [color]="colorRegister" type="submit">Register</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,57 @@
+<div class="checkout-wrapper">
+    <div class="header-title" style="background: url(assets/images/background/background.png);">
+        <div class="container" id="mainDIV">
+            <div class="title">
+                <h2 style="color:black;">Order - {{order.order.id}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="checkout sec-padding" style="background: url(assets/images/background/download.svg);">
+        <div class="container">
+
+            <div fxLayout="row wrap" class="">
+                <div *ngIf="order.order.status=='PENDING'||order.order.status=='OUT_FOR_DELIVERY'" style="padding:5px;" class="mat-elevation-z8 w-100">
+                    <h2>Actions</h2>
+                    <button [disabled]="dataSent" (click)="outForDelivery()" *ngIf="order.order.status=='PENDING'" mat-raised-button class="btn-project centrizeCustom" color="primary">
+                        Mark it as Out for delivery
+                    </button>
+                    <button [disabled]="dataSent" (click)="delivered()" *ngIf="order.order.status=='OUT_FOR_DELIVERY'" mat-raised-button class="btn-project centrizeCustom" color="primary">
+                        Mark it as Delivered
+                    </button>
+                </div>
+                <div style="padding:5px;margin-top:20px;" class="mat-elevation-z8 w-100">
+                    <h2>Order details</h2>
+                    <mat-grid-list cols="2" rowHeight="30px">
+                        <mat-grid-tile>Product</mat-grid-tile>
+                        <mat-grid-tile>
+                            <a [routerLink]="['/home/product',order.product.id]">
+                            {{order.product.title}}
+                            </a>
+                        </mat-grid-tile>
+                        <mat-grid-tile>Status</mat-grid-tile>
+                        <mat-grid-tile>{{order.order.status}}</mat-grid-tile>
+                        <mat-grid-tile>Estimation time</mat-grid-tile>
+                        <mat-grid-tile>{{order.order.wanted_at}}</mat-grid-tile>
+                        <mat-grid-tile>Creation time</mat-grid-tile>
+                        <mat-grid-tile>{{order.order.created_at | date:"yyyy-MM-dd HH:mm:ss"}}</mat-grid-tile>
+                        <mat-grid-tile>Update time</mat-grid-tile>
+                        <mat-grid-tile>{{order.order.updated_at | date:"yyyy-MM-dd HH:mm:ss"}}</mat-grid-tile>
+                    </mat-grid-list>
+                </div>
+                <div style="padding:5px;margin-top:20px;" class="mat-elevation-z8 w-100">
+                    <h2>Address details</h2>
+                    <mat-grid-list cols="2" rowHeight="30px">
+                        <mat-grid-tile>Address Line 1</mat-grid-tile>
+                        <mat-grid-tile>{{order.address.address1}}</mat-grid-tile>
+                        <mat-grid-tile>Address Line 2</mat-grid-tile>
+                        <mat-grid-tile>{{order.address.address2}}</mat-grid-tile>
+                        <mat-grid-tile>City</mat-grid-tile>
+                        <mat-grid-tile>{{order.address.city}}</mat-grid-tile>
+                        <mat-grid-tile>Zip code/Code postal</mat-grid-tile>
+                        <mat-grid-tile>{{order.address.zipcode}}</mat-grid-tile>
+                    </mat-grid-list>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

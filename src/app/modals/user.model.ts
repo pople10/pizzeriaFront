@@ -1,0 +1,29 @@
+export class User {
+    password?:string;
+    email?:string;
+    firstname?:string;
+    lastname?:string;
+    status?:string;
+    role?:string;
+    clear()
+    {
+        this.password="";
+        this.email="";
+        this.lastname="";
+        this.firstname="";
+        this.status="";
+        this.role="";
+    }
+    toJson()
+    {
+        return 
+        {
+            this.password,
+            this.email,
+            this.lastname,
+            this.firstname,
+            this.status,
+            this.role
+        }
+    }
+}
