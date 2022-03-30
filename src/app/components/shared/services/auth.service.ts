@@ -12,10 +12,6 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient,private authService:AuthService,private handleRequestService:HandleRequestService) { }
 
-  createUser(data:User): Observable<any>{
-    return this.httpClient.post<any>(`${ENV["backend-api-base-url"]}/api/admin/account/create`,data);
-  }
-
   register(data:User): Observable<any> {
     return this.httpClient.post<any>(`${ENV["backend-api-base-url"]}/auth/register`,data);
   }
