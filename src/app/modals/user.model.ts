@@ -1,6 +1,4 @@
 export class User {
-    // i added the user id field cuz i use it to disable user account (check manage-users.component.ts)
-    id?:number;
     password?:string;
     email?:string;
     firstname?:string;
@@ -9,7 +7,6 @@ export class User {
     role?:string;
     clear()
     {
-        this.id=null;
         this.password="";
         this.email="";
         this.lastname="";
@@ -21,7 +18,6 @@ export class User {
     {
         return 
         {
-            this.id,
             this.password,
             this.email,
             this.lastname,
