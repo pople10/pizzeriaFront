@@ -80,7 +80,7 @@ export class AppComponent implements OnInit {
   get role():string
   {
     let data = this.authService.getUser();
-    return data.role;
+    return data?.role;
   }
 
 

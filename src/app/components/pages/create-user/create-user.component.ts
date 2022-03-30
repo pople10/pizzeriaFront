@@ -6,9 +6,9 @@ import { HandleRequestService } from '../../shared/services/handle-request.servi
 import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
-  selector: 'app-my-account',
-  templateUrl: './my-account.component.html',
-  styleUrls: ['./my-account.component.sass']
+  selector: 'app-create-user',
+  templateUrl: './create-user.component.html',
+  styleUrls: ['./create-user.component.sass']
 })
 
 export class CreateUserComponent implements OnInit {
@@ -48,8 +48,6 @@ export class CreateUserComponent implements OnInit {
 
   // to discuss
   ngOnInit() {
-    if(this.authService.getUser().role != )
-      this.router.navigate(["/home"])
   }
 
   createUser(event)

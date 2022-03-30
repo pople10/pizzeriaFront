@@ -12,6 +12,7 @@ import { OrderComponent } from './order/order.component';
 import { OrderElementComponent } from './order-element/order-element.component';
 import { DeliveryComponent } from './delivery/delivery.component';
 import { DeliveryElementComponent } from './delivery-element/delivery-element.component';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 
 
@@ -32,6 +33,7 @@ const routes: Routes = [
       { path: 'error', component: ErrorPageComponent },
       { path: 'delivery', component: DeliveryComponent },
       { path: 'delivery/:id', component: DeliveryElementComponent },
+      { path:'create-user' , component:CreateUserComponent}
     ]
   }
 ];

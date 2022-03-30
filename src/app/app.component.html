@@ -44,6 +44,10 @@
                         <a fxShow="false" fxShow.gt-xs [routerLink]="['/pages/delivery']" routerLinkActive="router-link-active">
                             <mat-icon>delivery_dining</mat-icon>Ship items</a>
                     </div>
+                    <div *ngIf="isLoggedIn&&role=='ADMIN'" class="widget-text">
+                        <a fxShow="false" fxShow.gt-xs [routerLink]="['/pages/create-user']" routerLinkActive="router-link-active">
+                            <mat-icon>person</mat-icon>Create user</a>
+                    </div>
                     <div *ngIf="isLoggedIn" class="widget-text">
                         <a fxShow="false" fxShow.gt-xs (click)="this.authService.loggedOutV2()" routerLinkActive="router-link-active">
                             <mat-icon>exit_to_app</mat-icon>Logout</a>

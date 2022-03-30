@@ -24,6 +24,7 @@ import { OrderElementComponent } from './order-element/order-element.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { DeliveryComponent } from './delivery/delivery.component';
 import { DeliveryElementComponent } from './delivery-element/delivery-element.component';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 @NgModule({
   imports: [
@@ -56,7 +57,8 @@ import { DeliveryElementComponent } from './delivery-element/delivery-element.co
     OrderComponent,
     OrderElementComponent,
     DeliveryComponent,
-    DeliveryElementComponent
+    DeliveryElementComponent,
+    CreateUserComponent
 
   ]
 })
