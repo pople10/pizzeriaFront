@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private httpClient: HttpClient,private authService:AuthService,private handleRequestService:HandleRequestService) { }
 
   createUser(data:User): Observable<any>{
-    return this.httpClient.post<any>(`${ENV["backend-api-base-url"]}/api/admin/account/create`,data);
+    return this.httpClient.post<any>(`${ENV["backend-api-base-url"]}/api/admin/account`,data);
   }
 
   register(data:User): Observable<any> {
@@ -45,7 +45,7 @@ export class AuthService {
 
   loggedOutV2()
   {
-    this.httpClient.delete<any>(`${ENV["backend-api-base-url"]}/`).subscribe(response=>{
+    this.httpClient.delete<any>(`${ENV["backend-api-base-url"]}/logout`).subscribe(response=>{
         this.handleRequestService.showSuccessWithMessage("Logged out with success");  
         localStorage.removeItem("token");
         localStorage.removeItem("user");

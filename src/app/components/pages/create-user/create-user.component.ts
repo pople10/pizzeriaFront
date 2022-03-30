@@ -56,6 +56,7 @@ export class CreateUserComponent implements OnInit {
     this.isSubmitted=true;
     if(this.createUserForm.valid)
     {
+      console.log(this.data);
       this.authService.createUser(this.data).subscribe(response=>{
         this.data.clear();
         this.isSubmitted=false;

@@ -23,7 +23,7 @@
                 <div class="widgets-left" fxLayout="row">
                     <div *ngIf="isLoggedIn" class="widget-text">
                         <a fxShow="false" fxShow.gt-xs routerLinkActive="router-link-active">
-                            Hi {{user.firstname }} {{user.lastname | uppercase}},</a>
+                            Hi {{user?.firstname }} {{user?.lastname | uppercase}},</a>
                     </div>
                     <div class="widget-text">
                         <a fxShow="false" fxShow.gt-xs [routerLink]="['/pages/wishlist']" routerLinkActive="router-link-active">

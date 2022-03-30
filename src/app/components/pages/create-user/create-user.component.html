@@ -10,7 +10,7 @@
         <div class="container">
             <mat-card fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start start" class="p-0">
                 <div class="my-account-wrap p-0" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start start">
-                    <div class="register-wrapper pr-15" fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50">
+                    <div class="register-wrapper pr-15" fxFlex="100" fxFlex.gt-md="100" fxFlex.md="100">
                         <div class="title">
                             <h3>Add User</h3>
                         </div>
@@ -44,18 +44,19 @@
 
                                 <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
                                     <mat-form-field class="w-100">
-                                        <mat-select formControlName="role">
+                                        <mat-label>Select a role</mat-label>
+                                        <mat-select formControlName="role" [(ngModel)]="this.data.role">
                                             <mat-option></mat-option>
-                                            <mat-option value="admin">Admin</mat-option>
-                                            <mat-option value="client">Client</mat-option>
-                                            <mat-option value="delivery">Delivery</mat-option>
+                                            <mat-option value="ADMIN">Admin</mat-option>
+                                            <mat-option value="USER">Client</mat-option>
+                                            <mat-option value="DELIVERY">Delivery</mat-option>
                                         </mat-select>
                                         <mat-error *ngIf="isSubmitted && (form.role.errors?.required)">Please select a role</mat-error>
                                     </mat-form-field>
                                 </div>
-                                
+
                                 <div class="button-wrap" fxFlex="100" fxFlex.gt-sm="100" ngClass.sm="mt-1" ngClass.xs="mt-1">
-                                    <button [disabled]="dataSent" class="btn-project" mat-raised-button [color]="colorRegister" type="submit">Register</button>
+                                    <button [disabled]="dataSent" class="btn-project" mat-raised-button [color]="colorCreateUser" type="submit">Register</button>
                                 </div>
                             </form>
                         </div>
