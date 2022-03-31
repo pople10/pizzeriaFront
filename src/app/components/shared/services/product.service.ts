@@ -26,6 +26,22 @@ export class ProductService {
    this.compareProducts.subscribe(products => products = products)
   }
 
+  public getProductsForAdmin(): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(`${ENV["backend-api-base-url"]}/api/admin/product`);
+  }
+
+  public disableProduct(id:number): Observable<any> {
+    return this.httpClient.delete<any>(`${ENV["backend-api-base-url"]}/api/admin/product/${id}`);
+  }
+
+  public createProduct(prod:Product): Observable<any> {
+    return this.httpClient.post<any>(`${ENV["backend-api-base-url"]}/api/admin/product`,prod);
+  }
+
+  public updateProduct(prod:Product): Observable<any> {
+    return this.httpClient.put<any>(`${ENV["backend-api-base-url"]}/api/admin/product`,prod);
+  }
+
   private products(): Observable<Product[]> {
     return this.httpClient.get<Product[]>(`${ENV["backend-api-base-url"]}/public/product`);
   }

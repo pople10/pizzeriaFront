@@ -34,5 +34,15 @@ export class Product {
     this.availability = availability;
     this.state = "small";
   }
+  clear()
+  {
+    this.id = null;
+    this.title = "";
+    this.price = null;
+    this.photo = null;
+    this.preparation_time_in_min = null;
+    this.description = "";
+    this.availability = null;
+  }
 
  }

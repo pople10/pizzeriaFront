@@ -1,0 +1,46 @@
+<div class="checkout-wrapper">
+    <div class="header-title" style="background: url(assets/images/background/background.png);">
+        <div class="container" id="mainDIV">
+            <div class="title">
+                <h2 style="color:black;">Users</h2>
+            </div>
+        </div>
+    </div>
+    <div class="checkout sec-padding" style="background: url(assets/images/background/download.svg);">
+        <div class="container">
+
+            <div fxLayout="row wrap" class="">
+                <div style="padding:5px" class="mat-elevation-z8 w-100">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="m-2 p-4 row-border hover responsive w-100">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Last name</th>
+                                <th>First name</th>
+                                <th>Status</th>
+                                <th>Role</th>
+                                <th>Creation Time</th>
+                                <th>Update Time</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of users">
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.lastname }}</td>
+                                <td>{{ user.firstname }}</td>
+                                <td>{{ user.status }}</td>
+                                <td>{{ user.role }}</td>
+                                <td>{{ user.created_at | date:"yyyy-MM-dd HH:mm:ss" }}</td>
+                                <td>{{ user.updated_at | date:"yyyy-MM-dd HH:mm:ss" }}</td>
+                                <td>
+                                    <button *ngIf="user.status!='DISABLED'" mat-raised-button class="btn-project" (click)="deleteUser(user.id)" color="warn">Disable</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

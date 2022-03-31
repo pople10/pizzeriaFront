@@ -13,6 +13,11 @@ import { OrderElementComponent } from './order-element/order-element.component';
 import { DeliveryComponent } from './delivery/delivery.component';
 import { DeliveryElementComponent } from './delivery-element/delivery-element.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { ManageUsersComponent } from './manage-users/manage-users.component';
+import { ManageProductComponent } from './manage-product/manage-product.component';
+import { ManageCouponComponent } from './manage-coupon/manage-coupon.component';
+import { ManageOrderComponent } from './manage-order/manage-order.component';
+import { OrderAdminComponent } from './order-admin/order-admin.component';
 
 
 
@@ -33,7 +38,12 @@ const routes: Routes = [
       { path: 'error', component: ErrorPageComponent },
       { path: 'delivery', component: DeliveryComponent },
       { path: 'delivery/:id', component: DeliveryElementComponent },
-      { path:'create-user' , component:CreateUserComponent}
+      { path:'create-user' , component:CreateUserComponent},
+      { path:'manage-users', component:ManageUsersComponent},
+      { path:'manage-products', component:ManageProductComponent},
+      { path:'manage-coupons', component:ManageCouponComponent},
+      { path:'manage-orders', component:ManageOrderComponent},
+      { path:'manage-order/:id', component:OrderAdminComponent}
     ]
   }
 ];

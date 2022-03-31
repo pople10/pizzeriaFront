@@ -45,8 +45,24 @@
                             <mat-icon>delivery_dining</mat-icon>Ship items</a>
                     </div>
                     <div *ngIf="isLoggedIn&&role=='ADMIN'" class="widget-text">
+                        <a fxShow="false" fxShow.gt-xs [routerLink]="['/pages/manage-orders']" routerLinkActive="router-link-active">
+                            <mat-icon>delivery_dining</mat-icon>Manage orders</a>
+                    </div>
+                    <div *ngIf="isLoggedIn&&role=='ADMIN'" class="widget-text">
                         <a fxShow="false" fxShow.gt-xs [routerLink]="['/pages/create-user']" routerLinkActive="router-link-active">
                             <mat-icon>person</mat-icon>Create user</a>
+                    </div>
+                    <div *ngIf="isLoggedIn&&role=='ADMIN'" class="widget-text">
+                        <a fxShow="false" fxShow.gt-xs [routerLink]="['/pages/manage-users']" routerLinkActive="router-link-active">
+                            <mat-icon>person</mat-icon>Manage users</a>
+                    </div>
+                    <div *ngIf="isLoggedIn&&role=='ADMIN'" class="widget-text">
+                        <a fxShow="false" fxShow.gt-xs [routerLink]="['/pages/manage-products']" routerLinkActive="router-link-active">
+                            <mat-icon>product</mat-icon>Manage products</a>
+                    </div>
+                    <div *ngIf="isLoggedIn&&role=='ADMIN'" class="widget-text">
+                        <a fxShow="false" fxShow.gt-xs [routerLink]="['/pages/manage-coupons']" routerLinkActive="router-link-active">
+                            <mat-icon>product</mat-icon>Manage coupons</a>
                     </div>
                     <div *ngIf="isLoggedIn" class="widget-text">
                         <a fxShow="false" fxShow.gt-xs (click)="this.authService.loggedOutV2()" routerLinkActive="router-link-active">

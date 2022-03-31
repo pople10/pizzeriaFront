@@ -17,6 +17,7 @@ export class CreateUserComponent implements OnInit {
 
   isSubmitted:boolean=false;
   data:User=new User();
+  dataSent:boolean=false;
 
   createUserForm = new FormGroup({
     email: new FormControl('',
@@ -56,14 +57,14 @@ export class CreateUserComponent implements OnInit {
     this.isSubmitted=true;
     if(this.createUserForm.valid)
     {
-      console.log(this.data);
+      this.dataSent=true;
       this.authService.createUser(this.data).subscribe(response=>{
         this.data.clear();
         this.isSubmitted=false;
         this.handleRequestService.showSuccess();
       },err=>{
         this.handleRequestService.handleError(err);
-      })
+      }).add(()=>{this.dataSent=false;})
     }
   }
 

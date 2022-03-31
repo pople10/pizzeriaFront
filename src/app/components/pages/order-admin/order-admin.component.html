@@ -1,0 +1,139 @@
+<div class="checkout-wrapper">
+    <div class="header-title" style="background: url(assets/images/background/background.png);">
+        <div class="container" id="mainDIV">
+            <div class="title">
+                <h2 style="color:black;">Order - {{order.order.id}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="checkout sec-padding" style="background: url(assets/images/background/download.svg);">
+        <div class="container">
+
+            <div fxLayout="row wrap" class="">
+                <div style="padding:5px;" class="mat-elevation-z8 w-100">
+                    <h2>Actions</h2>
+                    <mat-grid-list cols="2" style="margin-bottom: 20px;" rowHeight="50px">
+                        <mat-grid-tile>
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Select a status</mat-label>
+                                <mat-select [(ngModel)]="statusSelected">
+                                    <mat-option></mat-option>
+                                    <mat-option *ngFor="let stats of status" [value]="stats">
+                                        {{stats}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="flag1">Please enter a valid status</mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <button [disabled]="dataSent" (click)="changeStatus()" mat-raised-button class="btn-project centrizeCustom" color="primary">
+                                Change status
+                            </button>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                    <mat-grid-list cols="2" rowHeight="50px">
+                        <mat-grid-tile>
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Select a delivery</mat-label>
+                                <mat-select [(ngModel)]="deliverySelected">
+                                    <mat-option></mat-option>
+                                    <mat-option *ngFor="let deli of deliveries" [value]="deli.id">
+                                        {{deli.firstname}} {{deli.lastname|uppercase}}:{{deli.id}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="flag2">Please enter a valid delivery</mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile>
+                            <button [disabled]="dataSent" (click)="changeDelivery()" mat-raised-button class="btn-project centrizeCustom" color="primary">
+                                Change delivery
+                            </button>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </div>
+                <div style="padding:5px;margin-top:20px;" class="mat-elevation-z8 w-100">
+                    <h2>Order details</h2>
+                    <mat-grid-list cols="2" rowHeight="30px">
+                        <mat-grid-tile>ID</mat-grid-tile>
+                        <mat-grid-tile>{{order.order.id}}</mat-grid-tile>
+                        <mat-grid-tile>Product</mat-grid-tile>
+                        <mat-grid-tile>
+                            <a [routerLink]="['/home/product',order.product.id]">
+                            {{order.product.title}}
+                            </a>
+                        </mat-grid-tile>
+                        <mat-grid-tile>Total</mat-grid-tile>
+                        <mat-grid-tile>{{order.order.total | number : '1.2-2' }} £</mat-grid-tile>
+                        <mat-grid-tile>Coupon</mat-grid-tile>
+                        <mat-grid-tile>{{order.order.coupon}}</mat-grid-tile>
+                        <mat-grid-tile>Paid</mat-grid-tile>
+                        <mat-grid-tile>{{order.order.paid | number : '1.2-2' }} £</mat-grid-tile>
+                        <mat-grid-tile>Status</mat-grid-tile>
+                        <mat-grid-tile>{{order.order.status}}</mat-grid-tile>
+                        <mat-grid-tile>Type</mat-grid-tile>
+                        <mat-grid-tile>{{order.order.type}}</mat-grid-tile>
+                        <mat-grid-tile>Estimation time</mat-grid-tile>
+                        <mat-grid-tile>{{order.order.wanted_at}}</mat-grid-tile>
+                        <mat-grid-tile>Creation time</mat-grid-tile>
+                        <mat-grid-tile>{{order.order.created_at | date:"yyyy-MM-dd HH:mm:ss"}}</mat-grid-tile>
+                        <mat-grid-tile>Update time</mat-grid-tile>
+                        <mat-grid-tile>{{order.order.updated_at | date:"yyyy-MM-dd HH:mm:ss"}}</mat-grid-tile>
+                    </mat-grid-list>
+                </div>
+                <div style="padding:5px;margin-top:20px;" class="mat-elevation-z8 w-100">
+                    <h2>Address details</h2>
+                    <mat-grid-list cols="2" rowHeight="30px">
+                        <mat-grid-tile>Address Line 1</mat-grid-tile>
+                        <mat-grid-tile>{{order.address.address1}}</mat-grid-tile>
+                        <mat-grid-tile>Address Line 2</mat-grid-tile>
+                        <mat-grid-tile>{{order.address.address2}}</mat-grid-tile>
+                        <mat-grid-tile>City</mat-grid-tile>
+                        <mat-grid-tile>{{order.address.city}}</mat-grid-tile>
+                        <mat-grid-tile>Zip code/Code postal</mat-grid-tile>
+                        <mat-grid-tile>{{order.address.zipcode}}</mat-grid-tile>
+                    </mat-grid-list>
+                </div>
+
+                <div style="padding:5px;margin-top:20px;" class="mat-elevation-z8 w-100">
+                    <h2>User details</h2>
+                    <mat-grid-list cols="2" rowHeight="30px">
+                        <mat-grid-tile>ID</mat-grid-tile>
+                        <mat-grid-tile>{{order.user.id}}</mat-grid-tile>
+                        <mat-grid-tile>First name</mat-grid-tile>
+                        <mat-grid-tile>{{order.user.firstname}}</mat-grid-tile>
+                        <mat-grid-tile>Last name</mat-grid-tile>
+                        <mat-grid-tile>{{order.user.lastname}}</mat-grid-tile>
+                        <mat-grid-tile>Email</mat-grid-tile>
+                        <mat-grid-tile><a href="mailto:{{order.user.email}}">{{order.user.email}}</a></mat-grid-tile>
+                        <mat-grid-tile>Status</mat-grid-tile>
+                        <mat-grid-tile>{{order.user.status}}</mat-grid-tile>
+                        <mat-grid-tile>Creation time</mat-grid-tile>
+                        <mat-grid-tile>{{order.user.created_at | date:"yyyy-MM-dd HH:mm:ss"}}</mat-grid-tile>
+                        <mat-grid-tile>Update time</mat-grid-tile>
+                        <mat-grid-tile>{{order.user.updated_at | date:"yyyy-MM-dd HH:mm:ss"}}</mat-grid-tile>
+                    </mat-grid-list>
+                </div>
+
+                <div *ngIf="order.delivery" style="padding:5px;margin-top:20px;" class="mat-elevation-z8 w-100">
+                    <h2>Delivery details</h2>
+                    <mat-grid-list cols="2" rowHeight="30px">
+                        <mat-grid-tile>ID</mat-grid-tile>
+                        <mat-grid-tile>{{order.delivery.id}}</mat-grid-tile>
+                        <mat-grid-tile>First name</mat-grid-tile>
+                        <mat-grid-tile>{{order.delivery.firstname}}</mat-grid-tile>
+                        <mat-grid-tile>Last name</mat-grid-tile>
+                        <mat-grid-tile>{{order.delivery.lastname}}</mat-grid-tile>
+                        <mat-grid-tile>Email</mat-grid-tile>
+                        <mat-grid-tile><a href="mailto:{{order.user.email}}">{{order.delivery.email}}</a></mat-grid-tile>
+                        <mat-grid-tile>Status</mat-grid-tile>
+                        <mat-grid-tile>{{order.delivery.status}}</mat-grid-tile>
+                        <mat-grid-tile>Creation time</mat-grid-tile>
+                        <mat-grid-tile>{{order.delivery.created_at | date:"yyyy-MM-dd HH:mm:ss"}}</mat-grid-tile>
+                        <mat-grid-tile>Update time</mat-grid-tile>
+                        <mat-grid-tile>{{order.delivery.updated_at | date:"yyyy-MM-dd HH:mm:ss"}}</mat-grid-tile>
+                    </mat-grid-list>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

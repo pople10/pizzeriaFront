@@ -25,6 +25,11 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { DeliveryComponent } from './delivery/delivery.component';
 import { DeliveryElementComponent } from './delivery-element/delivery-element.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { ManageUsersComponent } from './manage-users/manage-users.component';
+import { ManageProductComponent } from './manage-product/manage-product.component';
+import { ManageCouponComponent } from './manage-coupon/manage-coupon.component';
+import { ManageOrderComponent } from './manage-order/manage-order.component';
+import { OrderAdminComponent } from './order-admin/order-admin.component';
 
 @NgModule({
   imports: [
@@ -58,7 +63,12 @@ import { CreateUserComponent } from './create-user/create-user.component';
     OrderElementComponent,
     DeliveryComponent,
     DeliveryElementComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    ManageUsersComponent,
+    ManageProductComponent,
+    ManageCouponComponent,
+    ManageOrderComponent,
+    OrderAdminComponent
 
   ]
 })

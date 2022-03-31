@@ -1,0 +1,105 @@
+<p>manage-coupon works!</p>
+<div class="checkout-wrapper">
+    <div class="header-code" style="background: url(assets/images/background/background.png);">
+        <div class="container" id="mainDIV">
+            <div class="code">
+                <h2 style="color:black;">Coupons</h2>
+            </div>
+        </div>
+    </div>
+    <div class="checkout sec-padding" style="background: url(assets/images/background/download.svg);">
+        <div class="container">
+            <mat-card fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start start" class="p-0">
+                <div class="my-account-wrap p-0" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start start">
+                    <div class="register-wrapper pr-15" fxFlex="100" fxFlex.gt-md="100" fxFlex.md="100">
+                        <div class="code">
+                            <h3>Add coupon</h3>
+                        </div>à
+                        <div class="register-body">
+                            <form fxLayout="row wrap" [formGroup]="createCouponForm" (ngSubmit)="createCoupon($event)">
+                                <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" class="m-2" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                    <mat-form-field class="w-100">
+                                        <input formControlName="code" matInput placeholder="Code (required)" [(ngModel)]="this.data.code" name="code" required>
+                                        <mat-error *ngIf="isSubmitted && (form.code.errors?.required)">Please enter a valid code</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                    <mat-form-field class="w-100">
+                                        <input (keypress)="this.onlyNumberKey($event)" type="number" formControlName="amount" matInput placeholder="Amount (required)" type="text" [(ngModel)]="this.data.amount" name="amount" required>
+                                        <mat-error *ngIf="isSubmitted && (form.amount.errors?.required)">Please enter a valid amount</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                    <mat-form-field appearance="fill" class="w-100">
+                                        <mat-label>Select a type</mat-label>
+                                        <mat-select formControlName="type" [(ngModel)]="data.type">
+                                            <mat-option></mat-option>
+                                            <mat-option *ngFor="let typ of type" [value]="typ.value">
+                                                {{typ.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="isSubmitted && (form.type.errors?.required)">Please enter a valid type</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                    <mat-form-field class="w-100">
+                                        <input type="datetime-local" formControlName="expiration_tmp" matInput [(ngModel)]="data.expiration_tmp" name="wanted">
+                                        <mat-error *ngIf="isSubmitted && (form.expiration_tmp.errors?.required)">Please enter a valid expiration time</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="button-wrap" fxFlex="100" fxFlex.gt-sm="100" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                    <button [disabled]="dataSent" class="btn-project" mat-raised-button [color]="colorCreateCoupon" type="submit">
+                                        <span *ngIf="!data.id">Create</span>
+                                        <span *ngIf="data.id">Update</span>
+                                    </button>
+                                    <button color="warn" (click)="cancel()" *ngIf="data.id" [disabled]="dataSent" style="margin-left:10px;" class="btn-project" mat-raised-button>
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+
+        </div>
+        <div class="container">
+            <div fxLayout="row wrap" class="">
+                <div style="padding:5px" class="mat-elevation-z8 w-100">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="m-2 p-4 row-border hover responsive w-100">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Code</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Expiration time</th>
+                                <th>Update</th>
+                                <th>Disable</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let coupon of coupons">
+                                <td>{{ coupon.id }}</td>
+                                <td>{{ coupon.code }}</td>
+                                <td>{{ coupon.type }}</td>
+                                <td>{{ coupon.amount }}</td>
+                                <td>{{ coupon.expiration }}</td>
+                                <td>
+                                    <button mat-raised-button class="btn-project" (click)="updateCoupon(coupon.id)" color="primary">Update</button>
+                                </td>
+                                <td>
+                                    <button mat-raised-button class="btn-project" (click)="deleteCoupon(coupon.code)" color="warn">Disable</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

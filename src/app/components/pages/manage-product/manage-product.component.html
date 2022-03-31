@@ -1,0 +1,108 @@
+<div class="checkout-wrapper">
+    <div class="header-title" style="background: url(assets/images/background/background.png);">
+        <div class="container" id="mainDIV">
+            <div class="title">
+                <h2 style="color:black;">Products</h2>
+            </div>
+        </div>
+    </div>
+    <div class="checkout sec-padding" style="background: url(assets/images/background/download.svg);">
+        <div class="container">
+            <mat-card fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start start" class="p-0">
+                <div class="my-account-wrap p-0" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start start">
+                    <div class="register-wrapper pr-15" fxFlex="100" fxFlex.gt-md="100" fxFlex.md="100">
+                        <div class="title">
+                            <h3>Add Product</h3>
+                        </div>
+                        <h2 style="color:red;">Image should not be too heavy</h2>
+                        <div class="register-body">
+                            <form fxLayout="row wrap" [formGroup]="createProductForm" (ngSubmit)="createProduct($event)">
+                                <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" class="m-2" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                    <label for="photo">
+                                        <img *ngIf="!data.photo" style="max-height: 200px;" src="../../../../assets/images/input.jpg" />
+                                        <img *ngIf="data.photo" style="max-height: 200px;" [src]="domSanitizer.bypassSecurityTrustResourceUrl(data.photo)" />
+                                    </label>
+                                    <mat-error *ngIf="isSubmitted &&!data.photo">Please upload a photo</mat-error>
+                                    <input id="photo" type="file" #imageInput accept="image/*" hidden (change)="processFile(imageInput)">
+                                </div>
+                                <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" class="m-2" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                    <mat-form-field class="w-100">
+                                        <input formControlName="title" matInput placeholder="Title (required)" [(ngModel)]="this.data.title" name="title" required>
+                                        <mat-error *ngIf="isSubmitted && (form.title.errors?.required)">Please enter a valid title</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                    <mat-form-field class="w-100">
+                                        <textarea style="height:100px;" formControlName="description" matInput placeholder="Description (required)" [(ngModel)]="this.data.description" name="description" required>
+                                        </textarea>
+                                        <mat-error *ngIf="isSubmitted && (form.description.errors?.required)">Please enter a valid description</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                    <mat-form-field class="w-100">
+                                        <input (keypress)="this.onlyNumberKey($event)" type="number" formControlName="price" matInput placeholder="Price (required)" type="text" [(ngModel)]="this.data.price" name="price" required>
+                                        <mat-error *ngIf="isSubmitted && (form.price.errors?.required)">Please enter a valid price</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                    <mat-form-field class="w-100">
+                                        <input (keypress)="this.onlyNumberKey($event)" type="number" formControlName="preparation_time_in_min" matInput placeholder="Preparation time (In mins) (required)" type="text" [(ngModel)]="this.data.preparation_time_in_min" name="preparation_time_in_min"
+                                            required>
+                                        <mat-error *ngIf="isSubmitted && (form.preparation_time_in_min.errors?.required)">Please enter a valid preparation time</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="button-wrap" fxFlex="100" fxFlex.gt-sm="100" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                                    <button [disabled]="dataSent" class="btn-project" mat-raised-button [color]="colorCreateProduct" type="submit">
+                                        <span *ngIf="!data.id">Create</span>
+                                        <span *ngIf="data.id">Update</span>
+                                    </button>
+                                    <button color="warn" (click)="cancel()" *ngIf="data.id" [disabled]="dataSent" style="margin-left:10px;" class="btn-project" mat-raised-button>
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+
+        </div>
+        <div class="container">
+            <div fxLayout="row wrap" class="">
+                <div style="padding:5px" class="mat-elevation-z8 w-100">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="m-2 p-4 row-border hover responsive w-100">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Price</th>
+                                <th>Preparation time</th>
+                                <th>Availability</th>
+                                <th>Modify</th>
+                                <th>Disable</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let product of products">
+                                <td>{{ product.id }}</td>
+                                <td>{{ product.title }}</td>
+                                <td>{{ product.price }}£</td>
+                                <td>{{ product.preparation_time_in_min }}</td>
+                                <td>{{ product.availability }}</td>
+                                <td>
+                                    <button mat-raised-button class="btn-project" (click)="updateProduct(product.id)" color="primary">Update</button>
+                                </td>
+                                <td>
+                                    <button *ngIf="product.availability!=false" mat-raised-button class="btn-project" (click)="deleteProduct(product.id)" color="warn">Disable</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
